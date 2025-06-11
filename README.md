@@ -14,7 +14,7 @@ A responsive web dashboard built with **HTML, CSS, JavaScript/Express.js and POS
 
 ## 🛠️ Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: HTML, CSS/Bootstrap, JavaScript
 - **Backend**: Node.js, Express.js, Postgres
 - **APIs**: Neon POSTGRES
 
