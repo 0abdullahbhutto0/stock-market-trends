@@ -15,9 +15,8 @@ A responsive web dashboard built with **HTML, CSS, JavaScript/Express.js and POS
 ## 🛠️ Technologies Used
 
 - **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Node.js, Express.js
-- **APIs**: (e.g., Alpha Vantage, Finnhub, or other stock APIs)
-- **Authentication**: (e.g., JWT or session-based – optional)
+- **Backend**: Node.js, Express.js, Postgres
+- **APIs**: Neon POSTGRES
 
 ## 🚀 Getting Started
 
