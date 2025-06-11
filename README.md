@@ -23,7 +23,7 @@ A responsive web dashboard built with **HTML, CSS, JavaScript/Express.js and POS
 
 1. Clone the repo:
    git clone https://github.com/0abdullahbhutto0/stock-market-trends.git
-   cd https://github.com/0abdullahbhutto0/stock-market-trends
+   cd stock-market-trends
 2. Install dependencies:
    npm install
 3.Start the app:
