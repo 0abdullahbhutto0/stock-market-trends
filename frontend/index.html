@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Pulse</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="navbar-brand" style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fas fa-chart-line"></i>
+                Stock Pulse
+            </span>
+            <div class="nav-links" id="navLinks" style="display: flex; align-items: center; gap: 0.5rem;">
+                <a href="#market-overview" class="nav-link active" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border-radius: 6px; white-space: nowrap;">
+                    <i class="fas fa-chart-area" style="width: 16px; text-align: center;"></i>
+                    Market Overview
+                </a>
+                <a href="#technical-analysis" class="nav-link" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border-radius: 6px; white-space: nowrap;">
+                    <i class="fas fa-chart-line" style="width: 16px; text-align: center;"></i>
+                    Technical Analysis
+                </a>
+                <a href="#sector-analysis" class="nav-link" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border-radius: 6px; white-space: nowrap;">
+                    <i class="fas fa-layer-group" style="width: 16px; text-align: center;"></i>
+                    Sector Analysis
+                </a>
+                <a href="#market-indices" class="nav-link" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border-radius: 6px; white-space: nowrap;">
+                    <i class="fas fa-chart-pie" style="width: 16px; text-align: center;"></i>
+                    Market Indices
+                </a>
+                <a href="#earnings" class="nav-link" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border-radius: 6px; white-space: nowrap;">
+                    <i class="fas fa-file-invoice-dollar" style="width: 16px; text-align: center;"></i>
+                    Earnings
+                </a>
+                <a href="#profile-watchlist" class="nav-link" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border-radius: 6px; white-space: nowrap;">
+                    <i class="fas fa-user-plus" style="width: 16px; text-align: center;"></i>
+                    Profile & Watchlist
+                </a>
+            </div>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+    <!-- Stock Ticker -->
+    <div class="ticker-container">
+        <div class="ticker-wrap">
+            <div class="ticker" id="stockTicker">
+                <!-- Ticker items will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Market Overview Section -->
+        <section id="market-overview" class="dashboard-section active">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h5 class="card-title">
+                        <i class="fas fa-chart-area"></i>
+                        Stock Price Trends
+                        <div class="carousel-controls">
+                            <button class="carousel-btn prev" onclick="prevPriceBatch()">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-btn next" onclick="nextPriceBatch()">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </h5>
+                    <div class="chart-container price-chart">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h5 class="card-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Trading Volume
+                        <div class="carousel-controls">
+                            <button class="carousel-btn prev" onclick="prevVolumeBatch()">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-btn next" onclick="nextVolumeBatch()">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </h5>
+                    <div class="chart-container volume-chart">
+                        <canvas id="volumeChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card full-width">
+                    <h5 class="card-title">
+                        <i class="fas fa-table"></i>
+                        Market Overview
+                    </h5>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Change</th>
+                                    <th>Volume</th>
+                                    <th>Market Cap</th>
+                                    <th>Sector</th>
+                                </tr>
+                            </thead>
+                            <tbody id="marketData">
+                                <!-- Data will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Fear and Greed Indicator -->
+                <div class="card full-width">
+                    <h5 class="card-title">
+                        <i class="fas fa-brain"></i>
+                        Market Sentiment
+                    </h5>
+                    <div class="sentiment-container">
+                        <div class="sentiment-meter">
+                            <div class="sentiment-bar" id="sentimentBar"></div>
+                        </div>
+                        <div class="sentiment-labels">
+                            <span>Fear</span>
+                            <span>Neutral</span>
+                            <span>Greed</span>
+                        </div>
+                        <div class="sentiment-value" id="sentimentValue">
+                            Neutral
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card full-width">
+                    <div id="newsSection">
+                        <!-- News will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Analysis Section -->
+        <section id="technical-analysis" class="dashboard-section">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h5 class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        Moving Averages
+                        <div class="carousel-controls">
+                            <button class="carousel-btn prev" onclick="prevMABatch()">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-btn next" onclick="nextMABatch()">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </h5>
+                    <div class="chart-container ma-chart" style="position: relative; width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <canvas id="maChart" style="max-width: 100%; max-height: 100%;"></canvas>
+                    </div>
+                </div>
+                
+                <!-- RSI Indicator Chart -->
+                <div class="card">
+                    <h5 class="card-title">
+                        <i class="fas fa-wave-square"></i>
+                        RSI Indicator
+                        <div class="carousel-controls">
+                            <button class="carousel-btn prev" onclick="prevRSIBatch()">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-btn next" onclick="nextRSIBatch()">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </h5>
+                    <div class="chart-container rsi-chart" style="position: relative; width: 100%; height: 350px; display: flex; justify-content: center; align-items: center;">
+                        <canvas id="rsiChart" style="max-width: 100%; max-height: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sector Analysis Section -->
+        <section id="sector-analysis" class="dashboard-section">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h5 class="card-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Sector Performance
+                    </h5>
+                    <div class="chart-container" style="position: relative; width: 100%; height: 450px; display: flex; justify-content: center; align-items: center;">
+                        <canvas id="sectorChart" style="max-width: 100%; max-height: 100%;"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h5 class="card-title">
+                        <i class="fas fa-chart-pie"></i>
+                        Sector Distribution
+                    </h5>
+                    <div class="chart-container" style="position: relative; width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <canvas id="sectorPieChart" style="max-width: 100%; max-height: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Indices Section -->
+        <section id="market-indices" class="dashboard-section">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h5 class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        Market Indices Price
+                    </h5>
+                    <div class="chart-container" style="position: relative; width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <canvas id="indicesPriceChart" style="max-width: 100%; max-height: 100%;"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h5 class="card-title">
+                        <i class="fas fa-chart-pie"></i>
+                        Index Volume Distribution
+                    </h5>
+                    <div class="chart-container" style="position: relative; width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <canvas id="indicesVolumePie" style="max-width: 100%; max-height: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Earnings Section -->
+        <section id="earnings" class="dashboard-section">
+            <div class="dashboard-grid">
+                <div class="card full-width">
+                    <h5 class="card-title">
+                        <i class="fas fa-table"></i>
+                        Recent Earnings Reports
+                    </h5>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Period</th>
+                                    <th>Revenue</th>
+                                    <th>Net Income</th>
+                                    <th>EPS</th>
+                                    <th>Report Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="earningsData">
+                                <!-- Data will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Registration and Watchlist Section -->
+        <section id="profile-watchlist" class="dashboard-section">
+            <div class="dashboard-center-container">
+                <div class="glass-card">
+                    <h5 class="card-heading">
+                        <i class="fas fa-user-plus"></i> Profile Registration
+                    </h5>
+                    <form id="loginForm" class="form-section" method="POST" action="http://localhost:3000/api/login">
+                        <div>
+                            <label for="login_username" class="form-label">Profile Name or Email</label>
+                            <input type="text" id="login_username" name="username" class="modern-input" required>
+                        </div>
+                        <button type="submit" class="modern-btn">Login</button>
+                        <div class="form-switch-link">
+                            <span>Don't have a profile?</span>
+                            <a href="#" id="showSignupLink">Sign Up</a>
+                        </div>
+                    </form>
+                    <form id="userForm" class="form-section" method="POST" action="http://localhost:3000/api/users" style="display: none;">
+                        <div>
+                            <label for="username" class="form-label">Profile Name</label>
+                            <input type="text" id="username" name="username" class="modern-input" required>
+                        </div>
+                        <div>
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="modern-input" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Select Companies to Watch</label>
+                            <div id="companyGrid" class="company-grid"></div>
+                        </div>
+                        <button type="submit" class="modern-btn">Create Profile & Watchlist</button>
+                        <div class="form-switch-link">
+                            <a href="#" id="backToLoginLink">Back to Login</a>
+                        </div>
+                    </form>
+                    <button id="logoutBtn" class="logout-btn" style="display: none;">Logout</button>
+                </div>
+                <div class="card full-width" id="watchlistCard" style="display: none; max-width: 600px; width: 100%;">
+                    <h5 class="card-title">
+                        <i class="fas fa-list"></i>
+                        Watchlist
+                    </h5>
+                    <div id="watchlistPanel">
+                        <!-- Watchlist items will be populated dynamically -->
+                    </div>
+                    <div class="chart-container" style="margin-top: 2rem;">
+                        <canvas id="watchlistChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="app.js"></script>
+</body>
+</html>
