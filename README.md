@@ -26,7 +26,9 @@ A responsive web dashboard built with **HTML, CSS, JavaScript/Express.js and POS
    cd stock-market-trends
 
 2. Install dependencies:
+
    npm install
 
-3.Start the app:
-  npm start
+ 3.Start the app:
+  
+    npm start
