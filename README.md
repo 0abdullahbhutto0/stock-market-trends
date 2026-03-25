@@ -31,6 +31,6 @@ A responsive web dashboard built with **HTML, CSS, JavaScript/Express.js and POS
 
 3. Setup NEON DB
 
- 4.Start the app:
+4. Start the app:
   
     npm start
