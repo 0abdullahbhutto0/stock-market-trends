@@ -6,8 +6,8 @@ A responsive web dashboard built with **HTML, CSS, JavaScript/Express.js and POS
 
 - 💹 **Real-Time Price Tracking** – Monitor live stock prices with smooth updates.
 - 📊 **Technical Indicators** – Visualize key metrics like:
-  - RSI (Relative Strength Index)
-  - SMA (Simple Moving Average)
+  - Relative Strength Index
+  - Simple Moving Average
 - 👤 **User Profiles** – Users can create and manage their accounts.
 - ⭐ **Watchlists** – Save favorite stocks and monitor their performance.
 - 📱 **Responsive Design** – Works well on desktop and mobile devices.
@@ -29,6 +29,8 @@ A responsive web dashboard built with **HTML, CSS, JavaScript/Express.js and POS
 
    npm install
 
- 3.Start the app:
+3. Setup NEON DB
+
+ 4.Start the app:
   
     npm start
